@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow"/>
+    <title>Fishey, nouvelle plateforme de photographes</title>
+    <meta name="description" content="Fisheye par openclassrooms. La nouvelle plateforme de photographes">
+    <link href="./css/photographer.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/0b6d538c32.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./assets/images/shortcutIcon.png">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <title>Fisheye - photographe </title>
+  </head>
+  <body>
+    <header>
+      <a href="./index.html">
+      <img src="assets/images/logo.png" class="logo"/></a>
+    </header>
+    <main id="main">
+      <div class="photograph-header">
+        <button class="btn-signup contact_button">Contactez-moi</button>
+      </div>
+
+      <section class="galleryPhotos">
+      </section>
+      
+      <aside>
+        <span class="like">
+          <i class="fas fa-heart heart-fas"></i>
+        </span>
+        <span class="price-day"></span>
+      </aside>
+    
+        <div id="contact_modal">
+			    <div class="modal">
+				  <header>
+            <h2>Contactez-moi</h2>
+            <img class="close" src="assets/images/svg/close.svg" />
+          </header>
+				  <form name="reserve" action="photographer.html" method="get" >
+
+					  <div class="formData first-container">
+						  <label for="first">Prénom</label><br>
+                <input class="text-control" type="text" id="first" name="first" minlength="2" placeholder="votre prénom ici" autocomplete="off" required/><br>
+                <span></span>
+						</div>
+
+            <div class="formData last-container">
+              <label for="last">Nom</label><br>
+              <input class="text-control" type="text" id="last" name="last"  minlength="2" placeholder="votre nom ici"  autocomplete="off" required><br>
+              <span></span>
+            </div>
+
+            <div class="formData email-container">
+              <label for="email">Email</label><br>
+              <input class="text-control" type="email" id="email" name="email" placeholder="Ex:email@domaine.com" autocomplete="off" required/><br>
+              <span></span>
+            </div>
+
+            <div class=" formaData message-container">
+              <label for="message">Votre message</label><br>
+              <textarea class="text-control" type="text"  name="message" id="message" rows="10" cols="38" placeholder="Votre message ici" autocomplete="off" required></textarea>      
+              <span></span>
+            
+            </div>
+            <input class="contact_button_form" type="submit" value="Envoyer">
+				  </form>
+			</div>
+		</div>
+    </main>
+    
+    <div id="contact_lightbox">
+      <div class="lightbox">
+          <div class="lightbox_container">
+            <img src="./assets/medias/195/Travel_Bike_and_Stair.jpg" alt="#">
+            <button class="lightbox_close">Fermer</button>
+            <button class="lightbox_next">Suivant</button>
+            <button class="lightbox_prev">Précédent</button>
+          </div>
+      </div>
+    </div>
+
+    </div>
+    <script src="./scripts/pages/photographer.js"></script>
+    <script src="./scripts/pages/media.js"></script>
+    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/lightbox.js"></script>
+  </body>
+</html>
