@@ -21,6 +21,7 @@ class PhotographerApi extends Api {
     async getPhotographer() {
         return await this.get()
     }
+
 }
 
 

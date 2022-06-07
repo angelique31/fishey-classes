@@ -1,36 +1,45 @@
 //Mettre le code JavaScript lié à la page photographer.html
 class Card {
-    constructor(photographers) {
-        this.name = photographers.name;
-        this.id = photographers.id;
-        this.city = photographers.city;
-        this.tagline = photographers.tagline;
-        this.price = photographers.price;
-        this.portrait = photographers.portrait;
-    }
-
-    get name(){
-        return this._name
+    constructor(medias) {
+        this._id = medias.id;
+        this._photographerId = medias.photographerId;
+        this._title = medias.title;
+        this._image = medias.image;
+        this._likes = medias.likes;
+        this._date = medias.date;
+        this._price = medias.price;
+        this._video = medias.video;
     }
 
     get id() {
         return this._id
     }
-
-    get city() {
-        return this._city
+    
+    get photographerId() {
+        return this._photographerId
+    }
+    get title(){
+        return this._title
     }
 
-    get tagline() {
-        return this._tagline
+    get image() {
+        return this._image
+    }
+
+    get likes() {
+        return this._likes
     }
 
     get price() {
         return this._price
     }
 
-    get portrait() {
-        return `assets/photographers/${this.portrait}`
+    get image() {
+        return `assets/medias/${this._photographerId}/${this._portrait}`
+    }
+
+    get video() {
+        return `assets/medias/videos/${this._video} `
     }
 }
 
@@ -75,16 +84,21 @@ class Card {
 
     class App {
         constructor() {
-            this.$moviesWrapper = document.querySelector('.movies-wrapper')
-            this.moviesApi = new MovieApi('data/photographers.json')
+            this.$moviesWrapper = document.querySelector('.photograph-header')
+            // this.photographerApi = new PhotographerApi('data/photographers.json')
+            this.photographerApi = new PhotographerApi('data/media.json')
         }
     
         async main() {
-            const movies = await this.moviesApi.getMovies()
-            // console.log(movies)
-            movies.forEach(movie => {
-                const Template = new MovieCard(movie)
-                this.$moviesWrapper.appendChild(Template.createMovieCard())        
+            const cards = await this.photographerApi.getMediasApi()
+    
+            cards
+            .map(profil => new Card(profil))
+            .forEach(profil => {
+                console.log(profil)
+                const Template = new PhotographerCard(profil)
+                this.$moviesWrapper.appendChild(Template.createPhotographerCard()) 
+                      
             })    
         }
     }
@@ -105,42 +119,61 @@ class Card {
             const $wrapper = document.createElement('div')
             $wrapper.classList.add('movie-card-wrapper')
     
-            const movieCard = `
-                <div class="movie-thumbnail center">
-                    <img
-                        alt="${this._movie.title}"
-                        src="/assets/photographers/${this._movie.picture}"
-                    />
+            const photographerCard = `
+                <article>
+                <div class=info>
+                    <h2>${this._profil.name}</h2>
+                    <h3>${this._profil.city}, ${this._profil.country}</h3>
+                    <p>${this._profil.tagline}</p>
+                
                 </div>
-                <h3 class="fs-16 center">${this._movie.title}</h3>
-                <p class="fs-14 center">
-                    <span>${this._movie.released_in}</span>
-                    -
-                    <span>${this._movie.duration}</span>
-                </p>
-            `
+                <a href= "photographer.html?${this._profil.id}">
+                    <img src="${this._profil.portrait}" alt="Photo de ${this._profil.name}">
+                <a/>
+                
+                </article>`;
+
             
-            $wrapper.innerHTML = movieCard
+            $wrapper.innerHTML = photographerCard
+            return $wrapper
+        }
+    }
+
+/**
+ * Carte des medias
+ */
+    class MediaCard {
+        constructor(profil) {
+            this._profil = profil
+        }
+    
+        createMediaCard() {
+            const $wrapper = document.createElement('div')
+            $wrapper.classList.add('movie-card-wrapper')
+    
+            const mediaCard =  
+                `
+                <article>
+                    <a href= "photographer.html?${this._profil.photographerId}">
+                    ${video? `<video controls="controls" src="${this._profil.video}"></video>` 
+                    :
+                        `<img src="${this._profil.picture}" alt="Photo de ${this._profil.title}" id=${this._profil.id}>` }
+ 
+                    </a>
+                    <div class=title-likes>
+                        <h2>${this._profil.title}</h2>
+                        <div class=heart>
+                            <span>${this._profil.likes}</span>
+                            <i class="fas fa-heart heart-fas"></i>
+                        </div>
+                    </div>
+                </article>`
+
+            
+            $wrapper.innerHTML = mediaCard
             return $wrapper
         }
     }
 
 
-
-    function photographerFactory(data) {
-        const { name, portrait } = data;
     
-        const picture = `assets/photographers/${portrait}`;
-    
-        function getUserCardDOM() {
-            const article = document.createElement( 'article' );
-            const img = document.createElement( 'img' );
-            img.setAttribute("src", picture)
-            const h2 = document.createElement( 'h2' );
-            h2.textContent = name;
-            article.appendChild(img);
-            article.appendChild(h2);
-            return (article);
-        }
-        return { name, picture, getUserCardDOM }
-    }
